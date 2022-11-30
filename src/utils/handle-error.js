@@ -6,6 +6,8 @@ const {
   USER_IS_NOT_EXISTS,
   UN_AUTHORIZATION,
   NONE_TOKEN,
+  MISSING_DATA,
+  SQL_ERROR,
 } = require('../config/error')
 
 app.on('error', (error, ctx) => {
@@ -44,6 +46,18 @@ app.on('error', (error, ctx) => {
       ctx.body = {
         code: -1006,
         message: '请传入token',
+      }
+      break
+    case MISSING_DATA:
+      ctx.body = {
+        code: -1007,
+        message: '参数缺少数据',
+      }
+      break
+    case SQL_ERROR:
+      ctx.body = {
+        code: -1008,
+        message: '数据库错误',
       }
       break
   }

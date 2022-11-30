@@ -2,18 +2,19 @@
 const KoaRouter = require('@koa/router')
 const momentController = require('../controller/moment.controller')
 const { varifyAuth } = require('../middleware/login.middleware')
+const { verifyMoment } = require('../middleware/moment.middleware')
 
 const momentRouter = new KoaRouter({
   prefix: '/moment',
 })
 
-momentRouter.post('/', varifyAuth, momentController.create)
-// momentRouter.post('/', varifyAuth, async (ctx) => {
-//   console.log('[ ctx.request.body ] >', ctx.request.body)
+momentRouter.post(
+  '/',
+  varifyAuth,
+  verifyMoment,
+  momentController.create
+)
 
-//   setTimeout(() => {
-//     ctx.body = 'aaaaa'
-//   }, 100)
-// })
+momentRouter.get('/', momentController.list)
 
 module.exports = momentRouter

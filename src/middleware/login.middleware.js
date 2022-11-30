@@ -51,6 +51,7 @@ const varifyAuth = async (ctx, next) => {
     ctx.user = res
     await next()
   } catch (err) {
+    console.log('[ err ] >', err)
     return ctx.app.emit('error', UN_AUTHORIZATION, ctx)
   }
 }
