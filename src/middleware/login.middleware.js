@@ -35,7 +35,7 @@ const verifyLoginin = async (ctx, next) => {
   await next()
 }
 
-const varifyAuth = (ctx, next) => {
+const varifyAuth = async (ctx, next) => {
   const bearerToken = ctx.header.authorization
   if (!bearerToken) {
     return ctx.app.emit('error', NONE_TOKEN, ctx)
@@ -49,7 +49,7 @@ const varifyAuth = (ctx, next) => {
     })
 
     ctx.user = res
-    next()
+    await next()
   } catch (err) {
     return ctx.app.emit('error', UN_AUTHORIZATION, ctx)
   }
