@@ -1,9 +1,9 @@
-const dotenv = require("dotenv");
+const dotenv = require('dotenv')
 
-console.log(process.env.SERVER_PORT); // undefind
+// console.log(process.env.SERVER_PORT); // undefind
 
-dotenv.config();
+dotenv.config()
 
-console.log(process.env.SERVER_PORT); // 8000
+console.log(process.env.SERVER_PORT) // 8000
 
-module.exports = {SERVER_PORT} = process.env;
+module.exports = { SERVER_PORT } = process.env

@@ -6,6 +6,8 @@ const {
 } = require('../config/error')
 const userService = require('../service/user.service')
 const md5password = require('../utils/md5-password')
+const jwt = require('jsonwebtoken')
+const { publicKey } = require('../config/screct')
 
 const verifyLoginin = async (ctx, next) => {
   const { name, password } = ctx.request.body
@@ -31,6 +33,25 @@ const verifyLoginin = async (ctx, next) => {
   await next()
 }
 
+const varifyAuth = (ctx, next) => {
+  const bearerToken = ctx.header.authorization
+  if (!bearerToken) ctx.body = '请传入token'
+
+  const token = bearerToken.replace('Bearer ', '')
+
+  try {
+    const res = jwt.verify(token, publicKey, {
+      algorithms: ['RS256'],
+    })
+
+    ctx.user = res
+    next()
+  } catch (err) {
+    ctx.body = 'token验证不通过'
+  }
+}
+
 module.exports = {
   verifyLoginin,
+  varifyAuth,
 }
