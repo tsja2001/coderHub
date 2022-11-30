@@ -8,6 +8,7 @@ const {
   NONE_TOKEN,
   MISSING_DATA,
   SQL_ERROR,
+  NO_PERMISSION,
 } = require('../config/error')
 
 app.on('error', (error, ctx) => {
@@ -58,6 +59,12 @@ app.on('error', (error, ctx) => {
       ctx.body = {
         code: -1008,
         message: '数据库错误',
+      }
+      break
+    case NO_PERMISSION:
+      ctx.body = {
+        code: -1009,
+        message: '当前用户无权限操作',
       }
       break
   }

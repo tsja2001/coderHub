@@ -6,6 +6,7 @@ const UN_AUTHORIZATION = 'un_authorization'
 const NONE_TOKEN = 'none_token'
 const MISSING_DATA = 'missing_data'
 const SQL_ERROR = 'sql_error'
+const NO_PERMISSION = 'no_permission'
 module.exports = {
   NAME_OR_PASSWORD_IS_REQUIRED,
   NAME_IS_ALREADY_EXISTS,
@@ -15,4 +16,5 @@ module.exports = {
   NONE_TOKEN,
   MISSING_DATA,
   SQL_ERROR,
+  NO_PERMISSION,
 }

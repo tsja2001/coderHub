@@ -24,6 +24,34 @@ class MomentServer {
 
     const [res] = await connection.execute(statement, [size, offsite])
 
+    return res
+  }
+
+  async queryById(id) {
+    const statement = `SELECT * FROM moment WHERE id = ?`
+
+    const [res] = await connection.execute(statement, [id])
+
+    console.log('[ res ] >', res)
+
+    return res
+  }
+
+  async updata(content, id) {
+    const statement = `UPDATE moment SET content = ? WHERE id = ?`
+
+    const [res] = await connection.execute(statement, [content, id])
+
+    console.log('[ res ] >', res)
+
+    return res
+  }
+
+  async delete(id) {
+    const statement = `DELETE FROM moment WHERE id = ?`
+
+    const [res] = await connection.execute(statement, [id])
+
     console.log('[ res ] >', res)
 
     return res

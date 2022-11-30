@@ -37,6 +37,54 @@ class MomentController {
       ctx.app.emit('error', SQL_ERROR, ctx)
     }
   }
+
+  async id(ctx, next) {
+    const { momentId } = ctx.params
+
+    // 查询数据
+    try {
+      const res = await momentService.queryById(momentId)
+      ctx.body = {
+        code: '0',
+        data: res,
+      }
+    } catch (err) {
+      console.log('[ err ] >', err)
+      ctx.app.emit('error', SQL_ERROR, ctx)
+    }
+  }
+
+  async update(ctx, next) {
+    const { momentId } = ctx.params
+    const { content } = ctx.request.body
+
+    try {
+      const res = await momentService.updata(content, momentId)
+      ctx.body = {
+        code: '0',
+        data: res,
+      }
+    } catch (err) {
+      console.log('[ err ] >', err)
+      ctx.app.emit('error', SQL_ERROR, ctx)
+    }
+  }
+
+  async delete(ctx, next) {
+    const { momentId } = ctx.params
+
+    try {
+      const res = await momentService.delete(momentId)
+      ctx.body = {
+        code: '0',
+        message: '删除成功',
+        data: res,
+      }
+    } catch (err) {
+      console.log('[ err ] >', err)
+      ctx.app.emit('error', SQL_ERROR, ctx)
+    }
+  }
 }
 
 module.exports = new MomentController()
