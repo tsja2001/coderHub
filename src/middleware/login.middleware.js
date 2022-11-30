@@ -3,6 +3,8 @@ const {
   NAME_IS_ALREADY_EXISTS,
   PASSWORD_IS_INCORRENT,
   USER_IS_NOT_EXISTS,
+  UN_AUTHORIZATION,
+  NONE_TOKEN,
 } = require('../config/error')
 const userService = require('../service/user.service')
 const md5password = require('../utils/md5-password')
@@ -35,7 +37,9 @@ const verifyLoginin = async (ctx, next) => {
 
 const varifyAuth = (ctx, next) => {
   const bearerToken = ctx.header.authorization
-  if (!bearerToken) ctx.body = '请传入token'
+  if (!bearerToken) {
+    return ctx.app.emit('error', NONE_TOKEN, ctx)
+  }
 
   const token = bearerToken.replace('Bearer ', '')
 
@@ -47,7 +51,7 @@ const varifyAuth = (ctx, next) => {
     ctx.user = res
     next()
   } catch (err) {
-    ctx.body = 'token验证不通过'
+    return ctx.app.emit('error', UN_AUTHORIZATION, ctx)
   }
 }
 

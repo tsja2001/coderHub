@@ -4,6 +4,8 @@ const {
   NAME_OR_PASSWORD_IS_REQUIRED,
   PASSWORD_IS_INCORRENT,
   USER_IS_NOT_EXISTS,
+  UN_AUTHORIZATION,
+  NONE_TOKEN,
 } = require('../config/error')
 
 app.on('error', (error, ctx) => {
@@ -30,6 +32,18 @@ app.on('error', (error, ctx) => {
       ctx.body = {
         code: -1004,
         message: '用户不存在, 请先注册',
+      }
+      break
+    case UN_AUTHORIZATION:
+      ctx.body = {
+        code: -1005,
+        message: 'token过期, 请重新登陆',
+      }
+      break
+    case NONE_TOKEN:
+      ctx.body = {
+        code: -1006,
+        message: '请传入token',
       }
       break
   }
