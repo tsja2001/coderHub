@@ -1,4 +1,5 @@
 // 配置数据库连接池
+const {PASSWORD} = require('./password')
 
 const mysql2 = require('mysql2')
 
@@ -7,7 +8,7 @@ const connectionPool = mysql2.createPool({
   port: '3306',
   database: 'coderhub',
   user: 'root',
-  password: 'a164157852',
+  password: PASSWORD,
   connectionLimit: 5,
 })
 
